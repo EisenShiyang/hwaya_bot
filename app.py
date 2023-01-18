@@ -35,9 +35,9 @@ def callback():
 def handle_message(event):
     msg = event.message.text
     
-    if msg in Actions.HELP:
+    if msg == Actions.HELP:
         msg = Messages.HELP
-    elif msg in Actions.CODE:
+    elif msg == Actions.CODE:
         msg = Messages.CODE_INFO
     elif msg in Actions.FOOD:
         msg = "想存東西R人類"
