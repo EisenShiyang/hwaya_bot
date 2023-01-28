@@ -1,3 +1,3 @@
 HELP = "/help"
 CODE = "/code"
-FOOD = ["/添加","/刪除"]
+FOOD = ["/新增","/刪除"]

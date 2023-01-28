@@ -7,6 +7,7 @@ import tempfile
 import datetime
 import time
 from Utils import Actions, Messages
+from Helper.ValidationHelper import ValidationHelper
 from Helper.ActionHelper import ActionHelper
 
 app = Flask(__name__)
@@ -35,15 +36,18 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     msg = event.message.text
-    
-    if msg == Actions.HELP:
-        msg = Messages.HELP
-    elif msg == Actions.CODE:
-        msg = Messages.CODE_INFO
-    elif msg in Actions.FOOD:
-        actionHelper = ActionHelper()
-        actionHelper.Execute(msg)
-        msg = actionHelper.GetResult()
+    validationHelper = ValidationHelper(msg)
+    validationPass = validationHelper.Execute()
+
+    if validationPass:
+        if validationPass.GetAction() == Actions.HELP:
+            msg = Messages.HELP
+        elif validationPass.GetAction() == Actions.CODE:
+            msg = Messages.CODE_INFO
+        else:
+            actionHelper = ActionHelper()
+            actionHelper.Execute(msg)
+            msg = actionHelper.GetResult()
     else:
         msg = Messages.COMMAND_NOT_FOUND
 
