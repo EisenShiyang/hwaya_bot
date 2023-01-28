@@ -6,7 +6,6 @@ class ActionHelper:
     
     def Execute(self, action):
         self._messageHelper.Add(action)
-        self._messageHelper.Add("完成!")
     
     def GetResult(self):
         return self._messageHelper.GetMessage()
