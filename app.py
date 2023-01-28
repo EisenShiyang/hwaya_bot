@@ -41,7 +41,7 @@ def handle_message(event):
     elif msg == Actions.CODE:
         msg = Messages.CODE_INFO
     elif msg in Actions.FOOD:
-        actionHelper = ActionHelper()
+        actionHelper = ActionHelper.ActionHelper()
         actionHelper.Execute("msg")
         msg = actionHelper.GetResult()
     else:

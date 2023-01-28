@@ -1,9 +1,9 @@
-import MessageHelper
+from Helper import MessageHelper
 class ActionHelper:
     _messageHelper = None
     def __init__(self):
         global _messageHelper
-        _messageHelper = MessageHelper()
+        _messageHelper = MessageHelper.MessageHelper
     
     def Execute(action):
         _messageHelper.Add(action)
