@@ -7,6 +7,7 @@ import tempfile
 import datetime
 import time
 from Utils import Actions, Messages
+from Helper.MessageHelper import MessageHelper
 from Helper.ValidationHelper import ValidationHelper
 from Helper.ActionHelper import ActionHelper
 
@@ -36,22 +37,20 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     msg = event.message.text
-    validationHelper = ValidationHelper(msg)
-    validationPass = validationHelper.Execute()
+    messageHelper = MessageHelper()
+    validationHelper = ValidationHelper(msg, messageHelper)
+    command = validationHelper.Execute()
 
-    if validationPass:
-        if validationPass.GetAction() == Actions.HELP:
-            msg = Messages.HELP
-        elif validationPass.GetAction() == Actions.CODE:
-            msg = Messages.CODE_INFO
+    if command:
+        if command.GetAction() == Actions.HELP:
+            messageHelper.Add(Messages.HELP)
+        elif command.GetAction() == Actions.CODE:
+            messageHelper.Add(Messages.CODE_INFO)
         else:
-            actionHelper = ActionHelper()
-            actionHelper.Execute(msg)
-            msg = actionHelper.GetResult()
-    else:
-        msg = Messages.COMMAND_NOT_FOUND
+            actionHelper = ActionHelper(command, messageHelper)
+            actionHelper.Execute() 
 
-    message = TextSendMessage(text=msg)
+    message = TextSendMessage(text=messageHelper.GetMessage())
     line_bot_api.reply_message(event.reply_token, message)
         
 if __name__ == "__main__":

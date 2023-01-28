@@ -1,11 +1,8 @@
-from Helper.MessageHelper import MessageHelper
 class ActionHelper:
 
-    def __init__(self):
-        self._messageHelper = MessageHelper()
+    def __init__(self, command, messageHelper):
+        self.command = command
+        self._messageHelper = messageHelper
     
-    def Execute(self, action):
-        self._messageHelper.Add(action)
-    
-    def GetResult(self):
-        return self._messageHelper.GetMessage()
+    def Execute(self):
+        self._messageHelper.Add(self.command.GetAction())

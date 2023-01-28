@@ -1,17 +1,21 @@
 # python test.py
 from Helper.ActionHelper import ActionHelper
 from Helper.ValidationHelper import ValidationHelper
+from Helper.MessageHelper import MessageHelper
 print("TEST STARTS\n")
 
-msg = "/新增:牛奶~12/10@左"
+msg = "/新曾增:牛奶~12/10@中"
 #msg = "/help"
 #msg = "123"
-validationHelper = ValidationHelper(msg)
+messageHelper = MessageHelper()
+validationHelper = ValidationHelper(msg, messageHelper)
 food = validationHelper.Execute()
-print(food.GetItem())
-
-actionHelper = ActionHelper()
-actionHelper.Execute("666")
-print(actionHelper.GetResult())
+if food:
+    print(food.GetItem())
+    actionHelper = ActionHelper(food, messageHelper)
+    actionHelper.Execute()
+    print(messageHelper.GetMessage())
+else:
+    print(messageHelper.GetMessage())
 
 print("\nTEST ENDS")
