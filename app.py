@@ -7,7 +7,7 @@ import tempfile
 import datetime
 import time
 from Utils import Actions, Messages
-from Helper import ActionHelper
+from Helper.ActionHelper import ActionHelper
 
 app = Flask(__name__)
 static_tmp_path = os.path.join(os.path.dirname(__file__), 'static', 'tmp')
@@ -41,8 +41,8 @@ def handle_message(event):
     elif msg == Actions.CODE:
         msg = Messages.CODE_INFO
     elif msg in Actions.FOOD:
-        actionHelper = ActionHelper.ActionHelper()
-        actionHelper.Execute("msg")
+        actionHelper = ActionHelper()
+        actionHelper.Execute(msg)
         msg = actionHelper.GetResult()
     else:
         msg = Messages.COMMAND_NOT_FOUND

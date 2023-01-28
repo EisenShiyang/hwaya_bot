@@ -1,10 +1,11 @@
 class MessageHelper:
-    message = ""
 
-    def Add(text):
-        message += text
+    def __init__(self):
+        self.message = ""
+        
+    def Add(self, text):
+        self.message += text
 
-    def GetMessage():
-        global message
-        return message
+    def GetMessage(self):
+        return self.message
     
