@@ -15,22 +15,20 @@ class ValidationHelper:
         if '/' not in self.message:
             self.messageHelper.Add(Utils.Messages.COMMAND_NOT_FOUND)
             return None
-        else:
-            # Check if the user just wants some help
-            if self.AssistanceCheck(self.message) : return Command(self.message)
 
-            # Check what kind of action that the user want to take
-            performAction = re.split(':', self.message)[0]
-            # Check if it is a valid action
-            if not self.ActionCheck(performAction):
-                self.messageHelper.Add("Action Error\n")
-                return None
-            # If the action is Add
-            if performAction == Utils.Actions.FOOD[0]:
-                return self.AddValidation()
-            # If the action is Delete
-            if performAction == Utils.Actions.FOOD[1]:
-                return self.DeleteValidation()
+        # Check if the user just wants some help
+        if self.AssistanceCheck(self.message) : return Command(self.message)
+
+        # Check what kind of action that the user want to take
+        performAction = re.split(':', self.message)[0]
+        # Check if it is a valid action
+        if not self.ActionCheck(performAction):
+            self.messageHelper.Add("Action Error\n")
+            return None
+        # If the action is Add
+        if performAction == Utils.Actions.FOOD[0] : return self.AddValidation()
+        # If the action is Delete
+        if performAction == Utils.Actions.FOOD[1] : return self.DeleteValidation()
             
     def AddValidation(self):
         # Check if the order of the symbol is correct
