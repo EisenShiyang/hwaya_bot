@@ -2,8 +2,6 @@ import re
 from Class.Command import Command
 import Utils.Checker
 import Utils.Actions
-import Utils.Locations
-import Utils.Symbols
 import Utils.Messages
 class ValidationHelper:
     def __init__(self, message, messageHelper):
