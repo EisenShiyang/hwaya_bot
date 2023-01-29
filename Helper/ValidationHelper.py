@@ -1,5 +1,5 @@
 import re
-from Helper.Class.Command import Command
+from Class.Command import Command
 import Utils.Actions
 import Utils.Locations
 import Utils.Symbols
@@ -25,7 +25,6 @@ class ValidationHelper:
             else:
                 # Extract all labels from the incoming message
                 labelList = re.split(':|~|@', self.message)
-                print(labelList)
                 # Check if it is a valid action
                 if not self.ActionCheck(labelList[0]):
                     self.messageHelper.Add("Action Error\n")
