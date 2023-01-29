@@ -1,5 +1,6 @@
 import re
 from Class.Command import Command
+import Utils.Checker
 import Utils.Actions
 import Utils.Locations
 import Utils.Symbols
@@ -38,13 +39,13 @@ class ValidationHelper:
                 return Command(labelList[0], labelList[1],labelList[2],labelList[3])
 
     def AssistanceCheck(self, command):
-        return command in Utils.Actions.HELP or command in Utils.Actions.CODE
+        return Utils.Checker.AssistanceCheck(command)
 
     def SymbolCheck(self, symbols):
-        return symbols == Utils.Symbols.SYMBOL_LIST
+        return Utils.Checker.SymbolCheck(symbols)
 
     def ActionCheck(self, action):
-        return action in Utils.Actions.FOOD
+        return Utils.Checker.ActionCheck(action)
     
     def LocationCheck(self, location):
-        return location in Utils.Locations.FRIDGE_HWAYA or location in Utils.Locations.FRIDGE_MICRON
+        return Utils.Checker.LocationCheck(location)
