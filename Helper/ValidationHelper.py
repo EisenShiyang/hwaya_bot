@@ -42,10 +42,10 @@ class ValidationHelper:
         # Check if it is a valid location
         if not self.LocationCheck(labelList[3]):
             self.messageHelper.Add("Location Error")
+            return None
 
-        # If there is an error, return none
         # If all good, set all labels to each attribute of the Command object
-        return None if len(self.messageHelper.GetMessage()) > 0 else Command(labelList[0], labelList[1],labelList[2],labelList[3])
+        return Command(labelList[0], labelList[1],labelList[2],labelList[3])
             
 
     def DeleteValidation(self):
