@@ -5,7 +5,7 @@ import Utils.Symbols
 def AssistanceCheck(command):
     return command in Utils.Actions.HELP or command in Utils.Actions.CODE
 
-def SymbolCheck(symbols):
+def AddSymbolCheck(symbols):
     return symbols == Utils.Symbols.SYMBOL_LIST
 
 def ActionCheck(action):
