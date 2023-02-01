@@ -3,7 +3,7 @@ import Utils.Locations
 import Utils.Symbols
 
 def AssistanceCheck(command):
-    return command in Utils.Actions.HELP or command in Utils.Actions.CODE
+    return command in Utils.Actions.HELP or command in Utils.Actions.CODE or command in Utils.Actions.ID
 
 def AddSymbolCheck(symbols):
     return symbols == Utils.Symbols.SYMBOL_LIST

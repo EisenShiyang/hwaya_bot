@@ -46,6 +46,8 @@ def handle_message(event):
             messageHelper.Add(Messages.HELP)
         elif command.GetAction() == Actions.CODE:
             messageHelper.Add(Messages.CODE_INFO)
+        elif command.GetAction() == Actions.ID:
+            messageHelper.Add(event.source.userId)
         else:
             actionHelper = ActionHelper(command, messageHelper)
             actionHelper.Execute() 
