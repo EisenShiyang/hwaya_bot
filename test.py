@@ -6,7 +6,7 @@ import Helper.DatabaseHelper
 print("TEST STARTS\n")
 
 #msg = "/新增:牛奶1~12/10@小"
-msg = "註冊"
+msg = "/註冊:Hank"
 #msg = "/刪除"
 #msg = "/help"
 #msg = "123"
