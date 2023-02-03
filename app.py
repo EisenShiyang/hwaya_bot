@@ -51,8 +51,6 @@ def handle_message(event):
             messageHelper.Add(id)
         elif command.GetAction() == Actions.HOWTO:
             messageHelper.Add(Messages.HOW_TO)
-        elif command.GetAction() == Actions.REGISTER:
-            messageHelper.Add("Hi~ " + command.GetItem() + " : " + command.GetId())
         else:
             actionHelper = ActionHelper(command, messageHelper)
             actionHelper.Execute() 

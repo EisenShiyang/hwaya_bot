@@ -5,13 +5,11 @@ from Helper.MessageHelper import MessageHelper
 import Helper.DatabaseHelper
 print("TEST STARTS\n")
 
-msg = "/新增：牛奶1～12/10@小"
-#msg = "/註冊：Hank"
+#msg = "/新增：牛奶1～12/10@小"
+msg = "/註冊：Hank"
 #msg = "/刪除"
 #msg = "/help"
 #msg = "123"
-Helper.DatabaseHelper.LoadUser()
-Helper.DatabaseHelper.LoadFood()
 messageHelper = MessageHelper()
 validationHelper = ValidationHelper("123",msg, messageHelper)
 food = validationHelper.Execute()
