@@ -4,7 +4,7 @@ import Utils.Symbols
 from Helper.DatabaseHelper import *
 
 def AssistanceCheck(command):
-    return command == Utils.Actions.HELP or command == Utils.Actions.CODE or command == Utils.Actions.ID or command == Utils.Actions.HOWTO
+    return command == Utils.Actions.HELP or command == Utils.Actions.CODE or command == Utils.Actions.ID or command == Utils.Actions.HOWTO or command == Utils.Actions.LOCATION
 
 def RegisterCheck(id):
     return CheckRegistered(id)
