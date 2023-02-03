@@ -39,7 +39,7 @@ def handle_message(event):
     msg = event.message.text
     id = event.source.user_id
     messageHelper = MessageHelper()
-    validationHelper = ValidationHelper(msg, messageHelper)
+    validationHelper = ValidationHelper(id, msg, messageHelper)
     command = validationHelper.Execute()
 
     if command:
@@ -52,7 +52,7 @@ def handle_message(event):
         elif command.GetAction() == Actions.HOWTO:
             messageHelper.Add(Messages.HOW_TO)
         elif command.GetAction() == Actions.REGISTER:
-            messageHelper.Add("Hi~ " + command.GetItem() + " : " + id)
+            messageHelper.Add("Hi~ " + command.GetItem() + " : " + command.GetId())
         else:
             actionHelper = ActionHelper(command, messageHelper)
             actionHelper.Execute() 

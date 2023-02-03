@@ -5,7 +5,8 @@ import Utils.Checker
 import Utils.Actions
 import Utils.Messages
 class ValidationHelper:
-    def __init__(self, message, messageHelper):
+    def __init__(self, id, message, messageHelper):
+        self.id = id
         self.message = message
         self.messageHelper = messageHelper
 
@@ -16,7 +17,7 @@ class ValidationHelper:
             return None
 
         # Check if the user just wants some help
-        if self.AssistanceCheck(self.message) : return Command(self.message)
+        if self.AssistanceCheck(self.message) : return Command(self.id, self.message)
 
         # Check what kind of action that the user want to take
         performAction = re.split('：', self.message)[0]
@@ -49,7 +50,7 @@ class ValidationHelper:
             return None
 
         # If all good, set all labels to each attribute of the Command object
-        return Command(labelList[0], labelList[1],labelList[2],labelList[3])
+        return Command(self.id, labelList[0], labelList[1],labelList[2],labelList[3])
 
     def RegisterValidation(self):
         # Check if the order of the symbol is correct
@@ -64,7 +65,7 @@ class ValidationHelper:
             self.messageHelper.Add("Name Missing\n")
             return None
         
-        return Command(Utils.Actions.REGISTER, name)
+        return Command(self.id, Utils.Actions.REGISTER, name)
 
     def AssistanceCheck(self, command):
         return Utils.Checker.AssistanceCheck(command)

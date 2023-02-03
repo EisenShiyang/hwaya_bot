@@ -13,7 +13,7 @@ msg = "/新增：牛奶1～12/10@小"
 Helper.DatabaseHelper.LoadUser()
 Helper.DatabaseHelper.LoadFood()
 messageHelper = MessageHelper()
-validationHelper = ValidationHelper(msg, messageHelper)
+validationHelper = ValidationHelper("123",msg, messageHelper)
 food = validationHelper.Execute()
 if food:
     print(food.GetItem())
