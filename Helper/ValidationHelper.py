@@ -20,9 +20,7 @@ class ValidationHelper:
         if self.AssistanceCheck(self.message) : return Command(self.id, self.message)
 
         # Check what kind of action that the user want to take
-        performAction = re.split('：', self.message)[0]
-        print(performAction)
-        # TODO : Check the user has registered or not        
+        performAction = re.split('：', self.message)[0]       
 
         # Check if it is a valid action
         if not self.ActionCheck(performAction):
