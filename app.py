@@ -3,7 +3,7 @@ from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
 from linebot.models import *
 import os
-import tempfile
+import threading
 import datetime
 import time
 from Utils import Actions, Messages
@@ -17,6 +17,14 @@ static_tmp_path = os.path.join(os.path.dirname(__file__), 'static', 'tmp')
 line_bot_api = LineBotApi('2ntK2P9daJrdC8r0dyZ6AVe5jDfGIdf27wOWkn1pZ/VZEMOOjKhthuh3+7nya1ikWpLY3L2qVgagiKnplJPV8RncoLFgkvECh4yaMVhLL84zYo+Jl4rZfpzzPJKYaX3uhgEKdjxBlENDcpgGA+HPagdB04t89/1O/w1cDnyilFU=')
 # Channel Secret
 handler = WebhookHandler('a7142968d06edae024e33e9f592d5413')
+
+# def push_message():
+#     while 1 == 1:
+#         time.sleep(30)
+#         for x in range(2):
+#             line_bot_api.push_message("Ub4f02f5551c8df3eda2a9d429f8e9d9d", TextSendMessage(text="123"))
+
+# threading.Thread(target=push_message).start()
 
 # Listen all requests from /callback
 @app.route("/callback", methods=['POST'])

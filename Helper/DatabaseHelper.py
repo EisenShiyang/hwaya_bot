@@ -1,7 +1,7 @@
 import pymongo
 from Helper.DateHelper import *
-import Utils.DBConstant
-client = pymongo.MongoClient(Utils.DBConstant.DB_CONN)
+from Utils import DBConstant
+client = pymongo.MongoClient(DBConstant.DB_CONN)
 
 def Register(id, name): 
     if CheckRegistered(id):
@@ -44,11 +44,11 @@ def LoadFood():
     col = setFoodDB()
 
 def setUserDB():
-    db = client[Utils.DBConstant.USER_DBNAME]
-    col = db[Utils.DBConstant.USER_COLLECTION]
+    db = client[DBConstant.USER_DBNAME]
+    col = db[DBConstant.USER_COLLECTION]
     return col
 
 def setFoodDB():
-    db = client[Utils.DBConstant.FOOD_DBNAME]
-    col = db[Utils.DBConstant.FOOD_COLLECTION]
+    db = client[DBConstant.FOOD_DBNAME]
+    col = db[DBConstant.FOOD_COLLECTION]
     return col
