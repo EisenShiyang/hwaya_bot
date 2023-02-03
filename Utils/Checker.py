@@ -12,7 +12,7 @@ def AddDeleteSymbolCheck(symbols):
     return symbols == Utils.Symbols.ADD_DELETE_SYMBOL_LIST_HALF or symbols == Utils.Symbols.ADD_DELETE_SYMBOL_LIST_FULL
 
 def RegisterSymbolCheck(symbols):
-    return symbols == Utils.Symbols.REGISTER_SYMBOL_LIST_HALF or symbols == Utils.Symbols.REGISTER_SYMBOL_LIST_FULL
+    return symbols == Utils.Symbols.REGISTER_SYMBOL_LIST_FULL
 
 def NameCheck(name):
     return name != ''

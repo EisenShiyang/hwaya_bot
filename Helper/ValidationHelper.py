@@ -19,7 +19,8 @@ class ValidationHelper:
         if self.AssistanceCheck(self.message) : return Command(self.message)
 
         # Check what kind of action that the user want to take
-        performAction = re.split(':', self.message)[0]
+        performAction = re.split('：', self.message)[0]
+        print(performAction)
         # TODO : Check the user has registered or not        
 
         # Check if it is a valid action
@@ -41,7 +42,7 @@ class ValidationHelper:
             return None
         
         # Extract all labels from the incoming message
-        labelList = re.split(':|~|@', self.message)
+        labelList = re.split('：|～|@', self.message)
         # Check if it is a valid location
         if not self.LocationCheck(labelList[3]):
             self.messageHelper.Add("Location Error")
@@ -58,7 +59,7 @@ class ValidationHelper:
             return None
         
         # Check if the name is entered, if yes, return the object
-        name = re.split(':', self.message)[1]
+        name = re.split('：', self.message)[1]
         if not self.NameCheck(name):
             self.messageHelper.Add("Name Missing\n")
             return None
