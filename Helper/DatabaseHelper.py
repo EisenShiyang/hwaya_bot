@@ -3,9 +3,7 @@ from Helper.DateHelper import *
 import Utils.DBConstant
 client = pymongo.MongoClient(Utils.DBConstant.DB_CONN)
 
-def Register(id, name):
-    print("START REGISTER")
-    
+def Register(id, name): 
     if CheckRegistered(id):
         return None
     
@@ -20,7 +18,6 @@ def CheckRegistered(id):
 
 def LoadUser():
     col = setUserDB()
-    print("The number of users is: " + str(col.count_documents({})))
 
 def AddFood(command):
     col = setFoodDB()
@@ -35,7 +32,6 @@ def AddFood(command):
 
 def LoadFood():
     col = setFoodDB()
-    print("The number of food is: " + str(col.count_documents({})))
 
 def setUserDB():
     db = client[Utils.DBConstant.USER_DBNAME]
