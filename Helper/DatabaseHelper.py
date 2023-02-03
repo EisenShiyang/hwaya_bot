@@ -35,6 +35,7 @@ def DeleteFood(command):
     check_duplicated_name_dict = {
         "id": command.GetId(),
         "item": command.GetItem(),
+        "Location": command.GetLocation(),
         "date": CheckYear(command.GetDate())
     }
     col.delete_one(check_duplicated_name_dict)
