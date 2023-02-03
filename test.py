@@ -5,8 +5,8 @@ from Helper.MessageHelper import MessageHelper
 import Helper.DatabaseHelper
 print("TEST STARTS\n")
 
-msg = "/新增:牛奶~12/10@小"
-msg = "/註冊:123"
+msg = "/新增:牛奶1~12/10@小"
+#msg = "/註冊:123"
 #msg = "/刪除"
 #msg = "/help"
 #msg = "123"

@@ -31,15 +31,14 @@ class ValidationHelper:
         if performAction == Utils.Actions.FOOD[0] or performAction == Utils.Actions.FOOD[1] : return self.AddDeleteValidation()
         
         # If the user just wants to sign in
-        print(re.split('\w', self.message))
         name = re.split(':', self.message)[1]
         if performAction == Utils.Actions.REGISTER : return self.RegisterValidation(name)
 
     def AddDeleteValidation(self):
         # Check if the order of the symbol is correct
-        symbolList = re.split('\w', self.message)
+        symbolList = [s for s in re.split('\w', self.message) if s != '']
         if not self.AddDeleteSymbolCheck(symbolList):
-            self.messageHelper.Add("Symbol missing or command error\n")
+            self.messageHelper.Add("Symbol Error\n")
             return None
         
         # Extract all labels from the incoming message
@@ -53,6 +52,12 @@ class ValidationHelper:
         return Command(labelList[0], labelList[1],labelList[2],labelList[3])
 
     def RegisterValidation(self,name):
+        # Check if the order of the symbol is correct
+        symbolList = [s for s in re.split('\w', self.message) if s != '']
+        if not self.RegisterSymbolCheck(symbolList):
+            self.messageHelper.Add("Symbol Error\n")
+            return None
+        
         return Command(Utils.Actions.REGISTER, name)
 
     def AssistanceCheck(self, command):
@@ -60,6 +65,9 @@ class ValidationHelper:
 
     def AddDeleteSymbolCheck(self, symbols):
         return Utils.Checker.AddDeleteSymbolCheck(symbols)
+
+    def RegisterSymbolCheck(self, symbols):
+        return Utils.Checker.RegisterSymbolCheck(symbols)
 
     def ActionCheck(self, action):
         return Utils.Checker.ActionCheck(action)
