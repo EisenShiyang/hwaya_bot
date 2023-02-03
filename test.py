@@ -2,11 +2,13 @@
 from Helper.ActionHelper import ActionHelper
 from Helper.ValidationHelper import ValidationHelper
 from Helper.MessageHelper import MessageHelper
-import Helper.DatabaseHelper
+from Helper.DateHelper import *
 print("TEST STARTS\n")
 
-#msg = "/新增：牛奶1～12/10@小"
-msg = "/註冊：Hank"
+CheckYear("2/9")
+print(GetCurrentTime())
+msg = "/新增：牛奶1～1/30@小"
+#msg = "/註冊：Hank"
 #msg = "/刪除"
 #msg = "/help"
 #msg = "123"
