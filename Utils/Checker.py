@@ -14,6 +14,9 @@ def AddDeleteSymbolCheck(symbols):
 def RegisterSymbolCheck(symbols):
     return symbols == Utils.Symbols.REGISTER_SYMBOL_LIST
 
+def NameCheck(name):
+    return name != ''
+
 def ActionCheck(action):
     return action in Utils.Actions.FOOD or action in Utils.Actions.REGISTER
 
