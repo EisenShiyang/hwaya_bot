@@ -1,12 +1,13 @@
 import Utils.Actions
 import Utils.Locations
 import Utils.Symbols
+from Helper.DatabaseHelper import *
 
 def AssistanceCheck(command):
     return command == Utils.Actions.HELP or command == Utils.Actions.CODE or command == Utils.Actions.ID or command == Utils.Actions.HOWTO
 
-def RegisterCheck(command):
-    return True
+def RegisterCheck(id):
+    return CheckRegistered(id)
 
 def AddDeleteSymbolCheck(symbols):
     return symbols == Utils.Symbols.ADD_DELETE_SYMBOL_LIST_HALF or symbols == Utils.Symbols.ADD_DELETE_SYMBOL_LIST_FULL

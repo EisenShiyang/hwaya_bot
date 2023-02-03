@@ -1,6 +1,5 @@
 import re
 from Class.Command import Command
-from Class.User import User
 import Utils.Checker
 import Utils.Actions
 import Utils.Messages
@@ -24,27 +23,32 @@ class ValidationHelper:
 
         # Check if it is a valid action
         if not self.ActionCheck(performAction):
-            self.messageHelper.Add("Action Error\n")
+            self.messageHelper.Add(Utils.Messages.ACTION_ERROR)
+            return None
+
+        # If the user just wants to sign in
+        if performAction == Utils.Actions.REGISTER : return self.RegisterValidation()
+
+        # Check if the user hasn't registered yet
+        if not self.RegisterCheck(self.id):
+            self.messageHelper.Add(Utils.Messages.NOT_REGISTERED)
             return None
 
         # If the action is Add/Delete
         if performAction == Utils.Actions.FOOD[0] or performAction == Utils.Actions.FOOD[1] : return self.AddDeleteValidation()
         
-        # If the user just wants to sign in
-        if performAction == Utils.Actions.REGISTER : return self.RegisterValidation()
-
     def AddDeleteValidation(self):
         # Check if the order of the symbol is correct
         symbolList = [s for s in re.split('\w', self.message) if s != '']
         if not self.AddDeleteSymbolCheck(symbolList):
-            self.messageHelper.Add("Symbol Error or Value Missing\n")
+            self.messageHelper.Add(Utils.Messages.SYMBOL_ORDER_ERROR)
             return None
         
         # Extract all labels from the incoming message
         labelList = re.split('：|～|@', self.message)
         # Check if it is a valid location
         if not self.LocationCheck(labelList[3]):
-            self.messageHelper.Add("Location Error")
+            self.messageHelper.Add(Utils.Messages.LOCATION_ERROR)
             return None
 
         # If all good, set all labels to each attribute of the Command object
@@ -54,13 +58,13 @@ class ValidationHelper:
         # Check if the order of the symbol is correct
         symbolList = [s for s in re.split('\w', self.message) if s != '']
         if not self.RegisterSymbolCheck(symbolList):
-            self.messageHelper.Add("Symbol Error or Value Missing\n")
+            self.messageHelper.Add(Utils.Messages.SYMBOL_ORDER_ERROR)
             return None
         
         # Check if the name is entered, if yes, return the object
         name = re.split('：', self.message)[1]
         if not self.NameCheck(name):
-            self.messageHelper.Add("Name Missing\n")
+            self.messageHelper.Add(Utils.Messages.NAME_MISSING)
             return None
         
         return Command(self.id, Utils.Actions.REGISTER, name)
@@ -68,6 +72,9 @@ class ValidationHelper:
     def AssistanceCheck(self, command):
         return Utils.Checker.AssistanceCheck(command)
 
+    def RegisterCheck(self, id):
+        return Utils.Checker.RegisterCheck(id)
+    
     def AddDeleteSymbolCheck(self, symbols):
         return Utils.Checker.AddDeleteSymbolCheck(symbols)
 
@@ -82,3 +89,4 @@ class ValidationHelper:
     
     def LocationCheck(self, location):
         return Utils.Checker.LocationCheck(location)
+    

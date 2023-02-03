@@ -1,4 +1,5 @@
 import Utils.Actions
+import Utils.Messages
 from Helper.DatabaseHelper import *
 class ActionHelper:
     def __init__(self, command, messageHelper):
@@ -14,7 +15,7 @@ class ActionHelper:
             self.Register()
     
     def AddFood(self):
-        result = AddFood(self.command)
+        AddFood(self.command)
         self._messageHelper.Add(self.command.GetAction()+"\n")
 
     def DeleteFood(self):
@@ -24,7 +25,7 @@ class ActionHelper:
         # Call register function in DatabaseHelper
         result = Register(self.command.GetId(), self.command.GetItem())
         if result is None:
-            self._messageHelper.Add("User Already Exists")
+            self._messageHelper.Add(Utils.Messages.USER_EXISTED)
         else:
             self._messageHelper.Add(self.command.GetAction()+" Success!\n")
 
