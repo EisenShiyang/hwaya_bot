@@ -37,6 +37,7 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     msg = event.message.text
+    id = event.source.user_id
     messageHelper = MessageHelper()
     validationHelper = ValidationHelper(msg, messageHelper)
     command = validationHelper.Execute()
@@ -47,7 +48,11 @@ def handle_message(event):
         elif command.GetAction() == Actions.CODE:
             messageHelper.Add(Messages.CODE_INFO)
         elif command.GetAction() == Actions.ID:
-            messageHelper.Add(event.source.userId)
+            messageHelper.Add(id)
+        elif command.GetAction() == Actions.HOWTO:
+            messageHelper.Add(Messages.HOW_TO)
+        elif command.GetAction() == Actions.REGISTER:
+            messageHelper.Add("Hi~ " + command.GetItem() + " : " + id)
         else:
             actionHelper = ActionHelper(command, messageHelper)
             actionHelper.Execute() 

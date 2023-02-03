@@ -3,13 +3,16 @@ import Utils.Locations
 import Utils.Symbols
 
 def AssistanceCheck(command):
-    return command in Utils.Actions.HELP or command in Utils.Actions.CODE or command in Utils.Actions.ID
+    return command == Utils.Actions.HELP or command == Utils.Actions.CODE or command == Utils.Actions.ID or command == Utils.Actions.HOWTO
 
-def AddSymbolCheck(symbols):
-    return symbols == Utils.Symbols.SYMBOL_LIST
+def RegisterCheck(command):
+    return True
+
+def AddDeleteSymbolCheck(symbols):
+    return symbols == Utils.Symbols.ADD_DELETE_SYMBOL_LIST
 
 def ActionCheck(action):
-    return action in Utils.Actions.FOOD
+    return action in Utils.Actions.FOOD or action in Utils.Actions.REGISTER
 
 def LocationCheck(location):
     return location in Utils.Locations.FRIDGE_HWAYA or location in Utils.Locations.FRIDGE_MICRON
