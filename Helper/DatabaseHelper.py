@@ -28,7 +28,22 @@ def AddFood(command):
         "Location": command.GetLocation(),
         "insert_date": GetCurrentTime()
     }
-    return col.insert_one(food_dict)
+    col.insert_one(food_dict)
+
+def DeleteFood(command):
+    col = setFoodDB()
+    check_duplicated_name_dict = {
+        "id": command.GetId(),
+        "name": command.GetItem(),
+        "date": CheckYear(command.GetDate())
+    }
+    
+    if col.count_documents(check_duplicated_name_dict) > 1:
+        # Multiple items with the same name and expiration date
+        # Will delete the one with the earliest insert date
+        col.delete_one({"insert_date": col.find_one(check_duplicated_name_dict).sort({"insert_date", 1})["insert_date"]})
+    else:
+        col.delete_one(check_duplicated_name_dict)
 
 def LoadFood():
     col = setFoodDB()

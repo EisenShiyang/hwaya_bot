@@ -16,9 +16,10 @@ class ActionHelper:
     
     def AddFood(self):
         AddFood(self.command)
-        self._messageHelper.Add(self.command.GetAction()+"\n")
+        self._messageHelper.Add(Utils.Messages.ADD_SUCCESS)
 
     def DeleteFood(self):
+        DeleteFood(self.command)
         self._messageHelper.Add(self.command.GetAction()+"\n")
 
     def Register(self):

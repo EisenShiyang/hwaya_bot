@@ -24,3 +24,4 @@ SYMBOL_ORDER_ERROR = """🤖: 指令符號發生錯誤，請查看/howto了解�
 LOCATION_ERROR = """🤖: 找不到指定的地點... 請查看/location了解登陸地點"""
 NAME_MISSING = """🤖: 你是說...註冊誰? 請查看/howto了解使用細節"""
 USER_EXISTED = """🤖: 你已經登錄過嚕~ 想改名請來房間找我🥸"""
+ADD_SUCCESS = """🤖: 成功加入食物!"""
