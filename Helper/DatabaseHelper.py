@@ -1,6 +1,8 @@
 import pymongo
 from Helper.DateHelper import *
 from Utils import DBConstant
+from datetime import datetime, timedelta
+
 client = pymongo.MongoClient(DBConstant.DB_CONN)
 
 def Register(id, name): 
@@ -18,6 +20,7 @@ def CheckRegistered(id):
 
 def LoadUser():
     col = setUserDB()
+    return col.find()      
 
 def AddFood(command):
     col = setFoodDB()
@@ -25,7 +28,7 @@ def AddFood(command):
         "id": command.GetId(),
         "item": command.GetItem(),
         "date": CheckYear(command.GetDate()),
-        "Location": command.GetLocation(),
+        "location": command.GetLocation(),
         "insert_date": GetCurrentTime()
     }
     col.insert_one(food_dict)
@@ -35,13 +38,26 @@ def DeleteFood(command):
     check_duplicated_name_dict = {
         "id": command.GetId(),
         "item": command.GetItem(),
-        "Location": command.GetLocation(),
+        "location": command.GetLocation(),
         "date": CheckYear(command.GetDate())
     }
     col.delete_one(check_duplicated_name_dict)
 
-def LoadFood():
+def GetTheDayFood(id):
+    today = datetime.today()
+    today_object = datetime(today.year, today.month, today.day)
     col = setFoodDB()
+    query = {"id": id, "date": today_object}
+    return col.count_documents(query), col.find(query)
+
+def GetThreeDaysFood(id):
+    target_date = datetime.today() + timedelta(days=3)
+    target_date_object = datetime(target_date.year, target_date.month, target_date.day)
+    today = datetime.today()
+    today_object = datetime(today.year, today.month, today.day)
+    col = setFoodDB()
+    query = {"id": id, "date": {"$gt":today_object,"$lte":target_date_object}}
+    return col.count_documents(query), col.find(query).sort("date", 1)
 
 def setUserDB():
     db = client[DBConstant.USER_DBNAME]

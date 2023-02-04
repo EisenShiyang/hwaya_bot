@@ -19,7 +19,7 @@ class ActionHelper:
 
     def DeleteFood(self):
         DeleteFood(self.command)
-        self._messageHelper.Add(self.command.GetAction()+"\n")
+        self._messageHelper.Add(Messages.DELETE_SUCCESS+"位於"+self.command.GetLocation()+"並將於"+self.command.GetDate()+"過期的"+self.command.GetItem())
 
     def Register(self):
         # Call register function in DatabaseHelper
@@ -27,5 +27,5 @@ class ActionHelper:
         if result is None:
             self._messageHelper.Add(Messages.USER_EXISTED)
         else:
-            self._messageHelper.Add(self.command.GetAction()+" Success!\n")
+            self._messageHelper.Add(Messages.ROBOT_EMOJI + "Hi " + self.command.GetItem() + Messages.REGISTER_SUCCESS)
 
