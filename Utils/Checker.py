@@ -2,7 +2,7 @@ from Utils import Actions, Locations, Symbols
 from Helper.DatabaseHelper import *
 
 def AssistanceCheck(command):
-    return command == Actions.HELP or command == Actions.CODE or command == Actions.ID or command == Actions.HOWTO or command == Actions.LOCATION
+    return command == Actions.HELP or command == Actions.CODE or command == Actions.ID or command == Actions.HOWTO or command == Actions.LOCATION or command == Actions.LIST
 
 def RegisterCheck(id):
     return CheckRegistered(id)

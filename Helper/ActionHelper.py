@@ -3,7 +3,7 @@ from Helper.DatabaseHelper import *
 class ActionHelper:
     def __init__(self, command, messageHelper):
         self.command = command
-        self._messageHelper = messageHelper
+        self.messageHelper = messageHelper
     
     def Execute(self):
         if self.command.GetAction() == Actions.FOOD[0]:
@@ -12,20 +12,27 @@ class ActionHelper:
             self.DeleteFood()
         elif self.command.GetAction() == Actions.REGISTER:
             self.Register()
+        elif self.command.GetAction() == Actions.LIST:
+            self.GetFoodList()
     
     def AddFood(self):
         AddFood(self.command)
-        self._messageHelper.Add(Messages.ADD_SUCCESS)
+        self.messageHelper.Add(Messages.ADD_SUCCESS)
 
     def DeleteFood(self):
         DeleteFood(self.command)
-        self._messageHelper.Add(Messages.DELETE_SUCCESS+"位於"+self.command.GetLocation()+"並將於"+self.command.GetDate()+"過期的"+self.command.GetItem())
+        self.messageHelper.Add(Messages.DELETE_SUCCESS+"位於"+self.command.GetLocation()+"冰箱並將於"+self.command.GetDate()+"過期的"+self.command.GetItem())
 
     def Register(self):
         # Call register function in DatabaseHelper
         result = Register(self.command.GetId(), self.command.GetItem())
         if result is None:
-            self._messageHelper.Add(Messages.USER_EXISTED)
+            self.messageHelper.Add(Messages.USER_EXISTED)
         else:
-            self._messageHelper.Add(Messages.ROBOT_EMOJI + "Hi " + self.command.GetItem() + Messages.REGISTER_SUCCESS)
+            self.messageHelper.Add(Messages.ROBOT_EMOJI + "Hi " + self.command.GetItem() + Messages.REGISTER_SUCCESS)
 
+    def GetFoodList(self):
+        food_list = LoadFood(self.command.GetId())
+        self.messageHelper.Add(Messages.FOOD_LIST + "\n")
+        self.messageHelper.ConstructFoodList(food_list)
+        

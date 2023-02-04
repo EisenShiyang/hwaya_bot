@@ -22,6 +22,11 @@ def LoadUser():
     col = setUserDB()
     return col.find()      
 
+def LoadFood(id):
+    col = setFoodDB()
+    query = { "id" : id }
+    return col.find(query).sort("date", 1)  
+
 def AddFood(command):
     col = setFoodDB()
     food_dict = {

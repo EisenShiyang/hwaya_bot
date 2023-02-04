@@ -1,5 +1,6 @@
 HELP = "/help"
 CODE = "/code"
+LIST = "/list"
 ID = "/id"
 HOWTO = "/howto"
 LOCATION = "/location"
