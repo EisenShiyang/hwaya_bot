@@ -12,3 +12,6 @@ class Food:
 
     def GetDate(self):
         return self.date.strftime("%m/%d")
+    
+    def GetDateObject(self):
+        return self.date

@@ -59,6 +59,11 @@ def GetThreeDaysFood(id):
     query = {"id": id, "date": {"$gt":today_object,"$lte":target_date_object}}
     return col.count_documents(query), col.find(query).sort("date", 1)
 
+def RemoveTheDayFood(id, food):
+    col = setFoodDB()
+    query = {"id": id, "item": food.GetItem(), "date": food.GetDateObject(), "location": food.GetLocation()}
+    col.delete_one(query)
+    
 def setUserDB():
     db = client[DBConstant.USER_DBNAME]
     col = db[DBConstant.USER_COLLECTION]

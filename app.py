@@ -23,7 +23,7 @@ handler = WebhookHandler('a7142968d06edae024e33e9f592d5413')
 def push_message():
     while 1 == 1:
         # Execute every day
-        time.Sleep(180)
+        time.sleep(10)
         # Load registered user
         user_list = LoadUser()
         # For each user registered, will check their stored food and send them message if needed
@@ -35,23 +35,25 @@ def push_message():
                 count = 1
                 messageHelper.Add(Messages.ROBOT_HI + user['name'] + "，以下物品已於今日到期，請記得處理!\n")
                 for food in the_day_food_list:
-                    alert_food = Food(food['item'], food['date'], food['Location'])
+                    alert_food = Food(food['item'], food['date'], food['location'])
                     messageHelper.Add(str(count) + ". " + alert_food.GetItem() + " 位於 " + alert_food.GetLocation()+"\n")
                     count = count + 1
+                    RemoveTheDayFood(user['id'], alert_food)
+                    
             # Retrieve foods that will expire in the following three days
             three_days_food_count, three_days_food_list = GetThreeDaysFood(user['id'])
             if three_days_food_count > 0:
                 count = 1
                 messageHelper.Add(Messages.ROBOT_HI + user['name'] + "，以下物品將於三天之類過期，請盡快食用!\n")
                 for food in three_days_food_list:
-                    alert_food = Food(food['item'], food['date'], food['Location'])
+                    alert_food = Food(food['item'], food['date'], food['location'])
                     messageHelper.Add(str(count) + ". " + alert_food.GetItem() + " 位於 " + alert_food.GetLocation() + " 將於 " + alert_food.GetDate() + "過期\n")
                     count = count + 1
             
             if the_day_food_count > 0 or three_days_food_count > 0:
                 line_bot_api.push_message(user['id'], TextSendMessage(text=messageHelper.GetMessage()))
 
-threading.Thread(target=push_message).start()
+#threading.Thread(target=push_message).start()
 
 # Listen all requests from /callback
 @app.route("/callback", methods=['POST'])
