@@ -30,15 +30,16 @@ def push_message():
         for user in user_list:
             messageHelper = MessageHelper()
             # Retrieve foods that expire on that day
-            the_day_food_count, the_day_food_list = GetTheDayFood(user['id'])
+            the_day_food_list = GetTheDayFood(user['id'])
+            the_day_food_count = len(list(the_day_food_list))
             if the_day_food_count > 0:
                 messageHelper.Add(Messages.ROBOT_HI + user['name'] + "，以下物品已於今日到期，請記得處理!\n")
                 messageHelper.ConstructTheDayFood(user['id'], the_day_food_list)
                     
             # Retrieve foods that will expire in the following three days
-            three_days_food_count, three_days_food_list = GetThreeDaysFood(user['id'])
+            three_days_food_list = GetThreeDaysFood(user['id'])
+            three_days_food_count = len(list(three_days_food_list))
             if three_days_food_count > 0:
-                count = 1
                 messageHelper.Add(Messages.ROBOT_HI + user['name'] + "，以下物品將於三天之類過期，請盡快食用!\n")
                 messageHelper.ConstructThreeDaysFood(three_days_food_list)
             

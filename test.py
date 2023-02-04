@@ -9,17 +9,12 @@ from Utils import Messages
 from datetime import datetime
 print("TEST STARTS\n")
 
-now = datetime.now()
-print(now.strftime("%H:%M:%S"))
-if now.strftime("%H:%M:S") == "13:06":
-    print("LALALALA")
-
 #user = {'id' : "Ub4f02f5551c8df3eda2a9d429f8e9d9d", 'name' : "Hank"}
 
 # Load registered user
 food_list = LoadFood("Ub4f02f5551c8df3eda2a9d429f8e9d9d")
-for i in food_list:
-    print(i)
+if len(list(food_list)) == 0:
+    print("HAHA")
 # For each user registered, will check their stored food and send them message if needed
 # for user in user_list:
 #     messageHelper = MessageHelper()

@@ -33,6 +33,9 @@ class ActionHelper:
 
     def GetFoodList(self):
         food_list = LoadFood(self.command.GetId())
-        self.messageHelper.Add(Messages.FOOD_LIST + "\n")
-        self.messageHelper.ConstructFoodList(food_list)
+        if len(list(food_list)) > 0:
+            self.messageHelper.Add(Messages.FOOD_LIST + "\n")
+            self.messageHelper.ConstructFoodList(food_list)
+        else:
+            self.messageHelper.Add(Messages.FOOD_LIST_EMPTY)
         
