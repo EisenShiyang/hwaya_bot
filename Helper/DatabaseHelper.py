@@ -25,7 +25,7 @@ def LoadUser():
 def LoadFood(id):
     col = setFoodDB()
     query = { "id" : id }
-    return col.find(query).sort("date", 1)  
+    return col.count_documents(query), col.find(query).sort("date", 1)
 
 def AddFood(command):
     col = setFoodDB()
@@ -53,7 +53,7 @@ def GetTheDayFood(id):
     today_object = datetime(today.year, today.month, today.day)
     col = setFoodDB()
     query = {"id": id, "date": today_object}
-    return col.find(query)
+    return col.count_documents(query), col.find(query)
 
 def GetThreeDaysFood(id):
     target_date = datetime.today() + timedelta(days=3)
@@ -62,7 +62,7 @@ def GetThreeDaysFood(id):
     today_object = datetime(today.year, today.month, today.day)
     col = setFoodDB()
     query = {"id": id, "date": {"$gt":today_object,"$lte":target_date_object}}
-    return col.find(query).sort("date", 1)
+    return col.count_documents(query), col.find(query).sort("date", 1)
 
 def RemoveTheDayFood(id, food):
     col = setFoodDB()

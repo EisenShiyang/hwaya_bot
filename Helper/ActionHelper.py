@@ -32,9 +32,9 @@ class ActionHelper:
             self.messageHelper.Add(Messages.ROBOT_EMOJI + "Hi " + self.command.GetItem() + Messages.REGISTER_SUCCESS)
 
     def GetFoodList(self):
-        food_list = LoadFood(self.command.GetId())
-        if len(list(food_list)) > 0:
-            self.messageHelper.Add(Messages.FOOD_LIST + "\n")
+        food_list_count, food_list = LoadFood(self.command.GetId())
+        if food_list_count > 0:
+            self.messageHelper.Add(Messages.FOOD_LIST)
             self.messageHelper.ConstructFoodList(food_list)
         else:
             self.messageHelper.Add(Messages.FOOD_LIST_EMPTY)

@@ -10,7 +10,6 @@ def CheckYear(date):
     global year_now
     if today > formatted_date:
         year_now = year_now + 1
-    
     return datetime(year_now, formatted_date.month, formatted_date.day)
 
 def GetCurrentTime():

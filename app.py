@@ -23,30 +23,29 @@ handler = WebhookHandler('a7142968d06edae024e33e9f592d5413')
 def push_message():
     while 1 == 1:
         # Execute every day
-        time.sleep(20)
+        time.sleep(1440)
         # Load registered user
         user_list = LoadUser()
         # For each user registered, will check their stored food and send them message if needed
         for user in user_list:
             messageHelper = MessageHelper()
             # Retrieve foods that expire on that day
-            the_day_food_list = GetTheDayFood(user['id'])
-            the_day_food_count = len(list(the_day_food_list))
+            the_day_food_count, the_day_food_list = GetTheDayFood(user['id'])
             if the_day_food_count > 0:
-                messageHelper.Add(Messages.ROBOT_HI + user['name'] + "，以下物品已於今日到期，請記得處理!\n")
+                messageHelper.Add(Messages.ROBOT_HI + user['name'] + "，以下物品已於今日到期，請記得處理!")
                 messageHelper.ConstructTheDayFood(user['id'], the_day_food_list)
                     
             # Retrieve foods that will expire in the following three days
-            three_days_food_list = GetThreeDaysFood(user['id'])
-            three_days_food_count = len(list(three_days_food_list))
+            three_days_food_count, three_days_food_list = GetThreeDaysFood(user['id'])
             if three_days_food_count > 0:
-                messageHelper.Add(Messages.ROBOT_HI + user['name'] + "，以下物品將於三天之類過期，請盡快食用!\n")
+                if the_day_food_count > 0: messageHelper.Add("\n")
+                messageHelper.Add(Messages.ROBOT_HI + user['name'] + "，以下物品將於三天之類過期，請盡快食用!")
                 messageHelper.ConstructThreeDaysFood(three_days_food_list)
             
             if the_day_food_count > 0 or three_days_food_count > 0:
                 line_bot_api.push_message(user['id'], TextSendMessage(text=messageHelper.GetMessage()))
 
-#threading.Thread(target=push_message).start()
+threading.Thread(target=push_message).start()
 
 # Listen all requests from /callback
 @app.route("/callback", methods=['POST'])
