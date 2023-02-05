@@ -6,19 +6,18 @@ import os
 import threading
 from datetime import datetime
 import time
-from Utils import Actions, Messages
+from Utils import Actions, Messages, Secret
 from Helper.MessageHelper import MessageHelper
 from Helper.ValidationHelper import ValidationHelper
 from Helper.ActionHelper import ActionHelper
 from Helper.DatabaseHelper import *
-from Class.Food import Food
 
 app = Flask(__name__)
 static_tmp_path = os.path.join(os.path.dirname(__file__), 'static', 'tmp')
 # Channel Access Token
-line_bot_api = LineBotApi('2ntK2P9daJrdC8r0dyZ6AVe5jDfGIdf27wOWkn1pZ/VZEMOOjKhthuh3+7nya1ikWpLY3L2qVgagiKnplJPV8RncoLFgkvECh4yaMVhLL84zYo+Jl4rZfpzzPJKYaX3uhgEKdjxBlENDcpgGA+HPagdB04t89/1O/w1cDnyilFU=')
+line_bot_api = LineBotApi(Secret.CHANNEL_ACCESS_TOKEN)
 # Channel Secret
-handler = WebhookHandler('a7142968d06edae024e33e9f592d5413')
+handler = WebhookHandler(Secret.CHANNEL_SECRET)
 
 def push_message():
     while 1 == 1:
