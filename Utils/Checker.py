@@ -21,3 +21,11 @@ def ActionCheck(action):
 
 def LocationCheck(location):
     return location in Locations.FRIDGE_HWAYA or location in Locations.FRIDGE_MICRON
+
+def GroupActionCheck(msg):
+    return Actions.HELP in msg or Actions.HOWTO in msg or Actions.LIST in msg or Actions.LOCATION in msg or IsFoodAction(msg)
+
+def IsFoodAction(msg):
+    for action in Actions.FOOD:
+        if action in msg : return True
+    return False

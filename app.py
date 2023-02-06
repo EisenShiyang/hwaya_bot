@@ -6,7 +6,7 @@ import os
 import threading
 from datetime import datetime
 import time
-from Utils import Actions, Messages, Secret
+from Utils import Actions, Messages, Secret, Checker
 from Helper.MessageHelper import MessageHelper
 from Helper.ValidationHelper import ValidationHelper
 from Helper.ActionHelper import ActionHelper
@@ -69,25 +69,35 @@ def handle_message(event):
     id = event.source.user_id
     messageHelper = MessageHelper()
     if message_from == "group":
-        if "user_id" in event.source:
-            print(123)
-        else:
-            messageHelper.Add(Messages.DEVICE_ERROR)
+        if Checker.GroupActionCheck(msg):
+            validationHelper = ValidationHelper(id, msg, messageHelper)
+            command = validationHelper.Execute()
+            if command:
+                if command.GetAction() == Actions.HELP:
+                    messageHelper.Add(Messages.HELP_USER)
+                elif command.GetAction() == Actions.HOWTO:
+                    messageHelper.Add(Messages.HOW_TO_USER)
+                elif command.GetAction() == Actions.LOCATION:
+                    messageHelper.Add(Messages.LOCATION)
+                else:
+                    actionHelper = ActionHelper(command, messageHelper)
+                    actionHelper.Execute()
+                    
+            message = TextSendMessage(text=messageHelper.GetMessage())
+            line_bot_api.reply_message(event.reply_token, message)
             
-        message = TextSendMessage(text=messageHelper.GetMessage())
-        line_bot_api.reply_message(event.reply_token, message)
     elif message_from == "user":
         validationHelper = ValidationHelper(id, msg, messageHelper)
         command = validationHelper.Execute()
         if command:
             if command.GetAction() == Actions.HELP:
-                messageHelper.Add(Messages.HELP)
+                messageHelper.Add(Messages.HELP_USER)
             elif command.GetAction() == Actions.CODE:
                 messageHelper.Add(Messages.CODE_INFO)
             elif command.GetAction() == Actions.ID:
                 messageHelper.Add(id)
             elif command.GetAction() == Actions.HOWTO:
-                messageHelper.Add(Messages.HOW_TO)
+                messageHelper.Add(Messages.HOW_TO_USER)
             elif command.GetAction() == Actions.LOCATION:
                 messageHelper.Add(Messages.LOCATION)
             else:

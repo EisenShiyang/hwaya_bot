@@ -1,4 +1,4 @@
-HELP = """🤖:以下為目前支援的指令~
+HELP_USER = """🤖:以下為目前支援的指令~
        /help -> 指令協助
        /code -> 查看程式碼相關
        /id   -> 獲取自己的ID
@@ -8,10 +8,17 @@ HELP = """🤖:以下為目前支援的指令~
        /註冊 -> 註冊自己(第一次使用請先註冊)
        /新增 -> 新增食物
        /刪除 -> 刪除食物"""
+HELP_GROUP = """🤖:以下為目前支援的指令~
+       /help -> 指令協助   
+       /howto-> 指令相關規則
+       /list -> 列出已存取的食物
+       /location -> 查看已登錄之地點
+       /新增 -> 新增食物(確認訊息將會傳至私人聊天室)
+       /刪除 -> 刪除食物(確認訊息將會傳至私人聊天室)"""
 CODE_INFO = """GitHub : https://github.com/EisenShiyang/hwaya_bot
 Technologies used : Python, MongoDB, Fly.io
 You are welcome to fork the project to add in any feature or optimize the code🤠"""
-HOW_TO = """🤖:以下為目前指令的規則~
+HOW_TO_USER = """🤖:以下為目前指令的規則~
        1. /註冊 -> ：[名字]
           Ex: /註冊：Shiyang
        2. /新增 -> ：[食物名]～[月日]@位置
@@ -37,3 +44,4 @@ ROBOT_EMOJI = """🤖: """
 ROBOT_HI = """🤖: 安安"""
 FOOD_LIST = """🤖: 目前加入的食物如下"""
 FOOD_LIST_EMPTY = """🤖: 還沒加入任何食物捏😫"""
+GROUP_NOT_SUPPORT = """🤖: 此指令並不支援"""
