@@ -1,5 +1,0 @@
-DB_CONN = "mongodb+srv://hwayabot:hwayabot@hwayabot.6bsgu2b.mongodb.net/?retryWrites=true&w=majority"
-USER_DBNAME = "user"
-USER_COLLECTION = "user_list"
-FOOD_DBNAME = "food"
-FOOD_COLLECTION = "food_list"

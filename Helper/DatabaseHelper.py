@@ -1,9 +1,9 @@
 import pymongo
 from Helper.DateHelper import *
-from Utils import DBConstant
+from Utils import DBSecret
 from datetime import datetime, timedelta
 
-client = pymongo.MongoClient(DBConstant.DB_CONN)
+client = pymongo.MongoClient(DBSecret.DB_CONN)
 
 def Register(id, name): 
     if CheckRegistered(id):
@@ -70,11 +70,11 @@ def RemoveTheDayFood(id, food):
     col.delete_one(query)
     
 def setUserDB():
-    db = client[DBConstant.USER_DBNAME]
-    col = db[DBConstant.USER_COLLECTION]
+    db = client[DBSecret.USER_DBNAME]
+    col = db[DBSecret.USER_COLLECTION]
     return col
 
 def setFoodDB():
-    db = client[DBConstant.FOOD_DBNAME]
-    col = db[DBConstant.FOOD_COLLECTION]
+    db = client[DBSecret.FOOD_DBNAME]
+    col = db[DBSecret.FOOD_COLLECTION]
     return col
