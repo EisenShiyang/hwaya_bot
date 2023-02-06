@@ -46,7 +46,7 @@ def DeleteFood(command):
         "location": command.GetLocation(),
         "date": CheckYear(command.GetDate())
     }
-    col.delete_one(check_duplicated_name_dict)
+    return col.delete_one(check_duplicated_name_dict)
 
 def GetTheDayFood(id):
     today = datetime.today()

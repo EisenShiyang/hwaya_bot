@@ -10,13 +10,14 @@ from datetime import datetime
 print("TEST STARTS\n")
 
 user = {'id' : "Ub4f02f5551c8df3eda2a9d429f8e9d9d", 'name' : "Hank"}
-msg = "/新增：紅茶～2/48@大"
+msg = "/刪除：紅茶～2/9@大"
 messageHelper = MessageHelper()
 validationHelper = ValidationHelper(user['id'], msg, messageHelper)
 command = validationHelper.Execute()
 actionHelper = ActionHelper(command, messageHelper)
 actionHelper.Execute()
 
+print(messageHelper.GetMessage())
 # user_list = LoadUser()
 # # For each user registered, will check their stored food and send them message if needed
 # for user in user_list:

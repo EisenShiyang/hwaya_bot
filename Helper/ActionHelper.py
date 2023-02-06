@@ -20,8 +20,11 @@ class ActionHelper:
         self.messageHelper.Add(Messages.ADD_SUCCESS)
 
     def DeleteFood(self):
-        DeleteFood(self.command)
-        self.messageHelper.Add(Messages.DELETE_SUCCESS+"位於"+self.command.GetLocation()+"冰箱並將於"+self.command.GetDate()+"過期的"+self.command.GetItem())
+        result = DeleteFood(self.command)
+        if result.deleted_count == 0:
+            self.messageHelper.Add(Messages.DELETE_FOOD_NOT_FOUND)
+        else:
+            self.messageHelper.Add(Messages.DELETE_SUCCESS+"位於"+self.command.GetLocation()+"冰箱並將於"+self.command.GetDate()+"過期的"+self.command.GetItem())
 
     def Register(self):
         # Call register function in DatabaseHelper
