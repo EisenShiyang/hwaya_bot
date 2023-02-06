@@ -17,7 +17,7 @@ class ActionHelper:
     
     def AddFood(self):
         AddFood(self.command)
-        self.messageHelper.Add(Messages.ADD_SUCCESS)
+        self.messageHelper.Add(Messages.ADD_SUCCESS+"位於"+self.command.GetLocation()+"冰箱並將於"+self.command.GetDate()+"過期的"+self.command.GetItem())
 
     def DeleteFood(self):
         result = DeleteFood(self.command)
