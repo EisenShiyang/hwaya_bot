@@ -13,8 +13,8 @@ HELP_GROUP = """🤖:以下為目前支援的指令~
        /howto-> 指令相關規則
        /list -> 列出已存取的食物
        /location -> 查看已登錄之地點
-       /新增 -> 新增食物(確認訊息將會傳至私人聊天室)
-       /刪除 -> 刪除食物(確認訊息將會傳至私人聊天室)"""
+       /新增 -> 新增食物
+       /刪除 -> 刪除食物"""
 CODE_INFO = """GitHub : https://github.com/EisenShiyang/hwaya_bot
 Technologies used : Python, MongoDB, Fly.io
 You are welcome to fork the project to add in any feature or optimize the code🤠"""
