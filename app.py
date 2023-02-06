@@ -65,28 +65,37 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     msg = event.message.text
+    message_from = event.source.type
     id = event.source.user_id
     messageHelper = MessageHelper()
-    validationHelper = ValidationHelper(id, msg, messageHelper)
-    command = validationHelper.Execute()
-
-    if command:
-        if command.GetAction() == Actions.HELP:
-            messageHelper.Add(Messages.HELP)
-        elif command.GetAction() == Actions.CODE:
-            messageHelper.Add(Messages.CODE_INFO)
-        elif command.GetAction() == Actions.ID:
-            messageHelper.Add(id)
-        elif command.GetAction() == Actions.HOWTO:
-            messageHelper.Add(Messages.HOW_TO)
-        elif command.GetAction() == Actions.LOCATION:
-            messageHelper.Add(Messages.LOCATION)
+    if message_from == "group":
+        if "user_id" in event.source:
+            print(123)
         else:
-            actionHelper = ActionHelper(command, messageHelper)
-            actionHelper.Execute() 
+            messageHelper.Add(Messages.DEVICE_ERROR)
+            
+        message = TextSendMessage(text=messageHelper.GetMessage())
+        line_bot_api.reply_message(event.reply_token, message)
+    elif message_from == "user":
+        validationHelper = ValidationHelper(id, msg, messageHelper)
+        command = validationHelper.Execute()
+        if command:
+            if command.GetAction() == Actions.HELP:
+                messageHelper.Add(Messages.HELP)
+            elif command.GetAction() == Actions.CODE:
+                messageHelper.Add(Messages.CODE_INFO)
+            elif command.GetAction() == Actions.ID:
+                messageHelper.Add(id)
+            elif command.GetAction() == Actions.HOWTO:
+                messageHelper.Add(Messages.HOW_TO)
+            elif command.GetAction() == Actions.LOCATION:
+                messageHelper.Add(Messages.LOCATION)
+            else:
+                actionHelper = ActionHelper(command, messageHelper)
+                actionHelper.Execute() 
 
-    message = TextSendMessage(text=messageHelper.GetMessage())
-    line_bot_api.reply_message(event.reply_token, message)
+        message = TextSendMessage(text=messageHelper.GetMessage())
+        line_bot_api.reply_message(event.reply_token, message)
         
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 5000))

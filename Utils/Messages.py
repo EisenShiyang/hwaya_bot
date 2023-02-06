@@ -23,6 +23,7 @@ COMMAND_NOT_FOUND = """🤖: 尚未支援此指令ㄛ🥴
 LOCATION ="""🤖: 以下為目前已登錄的地點
         1. 大 -> 大冰箱
         2. 小 -> 小冰箱"""
+DEVICE_ERROR = "🤖: 逼波逼波!! 目前不支援電腦輸入，請使用手機進行操作唷~"
 ACTION_ERROR = """🤖: 逼波逼波!!動作指令有錯誤!! 請查看/help尋求更多幫助"""
 NOT_REGISTERED = """🤖: 使用者尚未註冊，請查看/howto並利用[/註冊]指令"""
 SYMBOL_ORDER_ERROR = """🤖: 指令符號發生錯誤，請查看/howto了解使用細節"""
