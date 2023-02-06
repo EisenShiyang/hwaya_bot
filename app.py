@@ -74,9 +74,9 @@ def handle_message(event):
             command = validationHelper.Execute()
             if command:
                 if command.GetAction() == Actions.HELP:
-                    messageHelper.Add(Messages.HELP_USER)
+                    messageHelper.Add(Messages.HELP_GROUP)
                 elif command.GetAction() == Actions.HOWTO:
-                    messageHelper.Add(Messages.HOW_TO_USER)
+                    messageHelper.Add(Messages.HOW_TO_GROUP)
                 elif command.GetAction() == Actions.LOCATION:
                     messageHelper.Add(Messages.LOCATION)
                 else:
