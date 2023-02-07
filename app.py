@@ -11,7 +11,6 @@ from Helper.MessageHelper import MessageHelper
 from Helper.ValidationHelper import ValidationHelper
 from Helper.ActionHelper import ActionHelper
 from Helper.DatabaseHelper import *
-from Helper.TestHelper import *
 
 app = Flask(__name__)
 static_tmp_path = os.path.join(os.path.dirname(__file__), 'static', 'tmp')
@@ -90,8 +89,6 @@ def handle_message(event):
                     messageHelper.Add(Messages.HOW_TO_GROUP)
                 elif command.GetAction() == Actions.LOCATION:
                     messageHelper.Add(Messages.LOCATION)
-                elif command.GetAction() == Actions.PUSH:
-                    push_test(messageHelper)
                 else:
                     actionHelper = ActionHelper(command, messageHelper)
                     actionHelper.Execute()
@@ -113,8 +110,6 @@ def handle_message(event):
                 messageHelper.Add(Messages.HOW_TO_USER)
             elif command.GetAction() == Actions.LOCATION:
                 messageHelper.Add(Messages.LOCATION)
-            elif command.GetAction() == Actions.PUSH:
-                    push_test(messageHelper)
             else:
                 actionHelper = ActionHelper(command, messageHelper)
                 actionHelper.Execute() 
