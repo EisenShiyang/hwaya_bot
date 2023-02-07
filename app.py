@@ -11,6 +11,7 @@ from Helper.MessageHelper import MessageHelper
 from Helper.ValidationHelper import ValidationHelper
 from Helper.ActionHelper import ActionHelper
 from Helper.DatabaseHelper import *
+from Helper.TestHelper import *
 
 app = Flask(__name__)
 static_tmp_path = os.path.join(os.path.dirname(__file__), 'static', 'tmp')
@@ -41,7 +42,17 @@ def push_message():
                 messageHelper.Add(Messages.ROBOT_HI + user['name'] + "，以下物品將於三天之內過期，請盡快食用!")
                 messageHelper.ConstructThreeDaysFood(three_days_food_list)
             
-            if the_day_food_count > 0 or three_days_food_count > 0:
+            # If it is the first day of that month, generate a monthly report
+            day_today = datetime.now().day
+            the_month_food_count = 0
+            if day_today == 1:
+                the_month_food_count, the_month_food_list = GetTheMonthFood(user['id'])
+                if the_month_food_count > 0:
+                    if the_day_food_count > 0 or three_days_food_count > 0 : messageHelper.Add("\n")
+                    messageHelper.Add(Messages.ROBOT_HI + user['name'] + "，以下物品將於這個月過期，請多多注意嚕～")
+                    messageHelper.ConstructTheMonthFood(the_month_food_list)
+                    
+            if the_day_food_count > 0 or three_days_food_count > 0 or the_month_food_count > 0:
                 line_bot_api.push_message(user['id'], TextSendMessage(text=messageHelper.GetMessage()))
 
 threading.Thread(target=push_message).start()
@@ -79,6 +90,8 @@ def handle_message(event):
                     messageHelper.Add(Messages.HOW_TO_GROUP)
                 elif command.GetAction() == Actions.LOCATION:
                     messageHelper.Add(Messages.LOCATION)
+                elif command.GetAction() == Actions.PUSH:
+                    push_test(messageHelper)
                 else:
                     actionHelper = ActionHelper(command, messageHelper)
                     actionHelper.Execute()
@@ -100,6 +113,8 @@ def handle_message(event):
                 messageHelper.Add(Messages.HOW_TO_USER)
             elif command.GetAction() == Actions.LOCATION:
                 messageHelper.Add(Messages.LOCATION)
+            elif command.GetAction() == Actions.PUSH:
+                    push_test(messageHelper)
             else:
                 actionHelper = ActionHelper(command, messageHelper)
                 actionHelper.Execute() 

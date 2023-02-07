@@ -6,3 +6,4 @@ HOWTO = "/howto"
 LOCATION = "/location"
 REGISTER = "/註冊"
 FOOD = ["/新增","/刪除"]
+PUSH = "/push"

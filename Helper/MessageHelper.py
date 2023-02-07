@@ -26,10 +26,23 @@ class MessageHelper:
             count = count + 1
             RemoveTheDayFood(id, alert_food)
             
+    def ConstructTheDayFoodWithoutRemoval(self, id, foodList):
+        count = 1
+        for food in foodList:
+            alert_food = Food(food['item'], food['date'], food['location'])
+            self.Add("\n" + str(count) + ". " + alert_food.GetItem() + " 位於 " + alert_food.GetLocation())
+            count = count + 1
+            
     def ConstructThreeDaysFood(self, foodList):
         count = 1
         for food in foodList:
             alert_food = Food(food['item'], food['date'], food['location'])
             self.Add("\n" + str(count) + ". " + alert_food.GetItem() + " 位於 " + alert_food.GetLocation() + " 將於 " + alert_food.GetDate() + "過期")
             count = count + 1
-        
+    
+    def ConstructTheMonthFood(self, foodList):
+        count = 1
+        for food in foodList:
+            alert_food = Food(food['item'], food['date'], food['location'])
+            self.Add("\n" + str(count) + ". " + alert_food.GetItem() + " 位於 " + alert_food.GetLocation() + " 將於 " + alert_food.GetDate() + "過期")
+            count = count + 1
