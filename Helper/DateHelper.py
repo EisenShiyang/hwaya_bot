@@ -1,7 +1,10 @@
-from datetime import datetime
+from datetime import datetime,timezone,timedelta
 
-today = datetime.strptime(datetime.today().strftime("%m/%d"), "%m/%d")
-year_now = int(datetime.today().strftime("%Y"))
+time_now = datetime.utcnow().replace(tzinfo=timezone.utc)
+time_in_taiwan = time_now.astimezone(timezone(timedelta(hours=8)))
+today = time_in_taiwan.strftime("%m/%d")
+year_now = int(time_in_taiwan.strftime("%Y"))
+
 
 def CheckYear(date):
     # Check if the date is earlier than the current date
