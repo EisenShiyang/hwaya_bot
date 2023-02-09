@@ -12,6 +12,7 @@ from Helper.MessageHelper import MessageHelper
 from Helper.ValidationHelper import ValidationHelper
 from Helper.ActionHelper import ActionHelper
 from Helper.DatabaseHelper import *
+from Helper.DateHelper import *
 
 app = Flask(__name__)
 static_tmp_path = os.path.join(os.path.dirname(__file__), 'static', 'tmp')
@@ -23,7 +24,7 @@ handler = WebhookHandler(Secret.CHANNEL_SECRET)
 def push_message():
     while 1 == 1:
         # Execute every day
-        time.sleep(180)
+        time.sleep(86400)
         # Load registered user
         user_list = LoadUser()
         # For each user registered, will check their stored food and send them message if needed
@@ -43,8 +44,8 @@ def push_message():
                 messageHelper.Add("以下物品將於三天之內過期，請盡快食用!")
                 messageHelper.ConstructThreeDaysFood(three_days_food_list)
             
-            day_today = datetime.now().day
-            last_day_date = calendar.monthrange(today.year, today.month)[1]
+            day_today = GetToday().day
+            last_day_date = calendar.monthrange(GetToday().year, GetToday().month)[1]
             # If it is the first day of that month, generate a monthly report
             the_month_food_count = 0
             if day_today == 1:
@@ -59,11 +60,11 @@ def push_message():
             the_month_food_left_count = 0
             if day_today == last_day_date:
                 print("YETTTT")
-                    
+            
             if the_day_food_count > 0 or three_days_food_count > 0 or the_month_food_count > 0:
                 line_bot_api.push_message(user['id'], TextSendMessage(text=messageHelper.GetMessage()))
 
-# threading.Thread(target=push_message).start()
+threading.Thread(target=push_message).start()
 
 # Listen all requests from /callback
 @app.route("/callback", methods=['POST'])

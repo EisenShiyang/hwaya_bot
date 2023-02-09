@@ -1,23 +1,23 @@
 # python test.py
-# from Helper.ActionHelper import ActionHelper
-# from Helper.ValidationHelper import ValidationHelper
-# from Helper.MessageHelper import MessageHelper
-# from Helper.DateHelper import *
-# from Helper.DatabaseHelper import *
-# from Class.Food import Food
-# from Utils import Messages
-# from datetime import datetime
+from Helper.ActionHelper import ActionHelper
+from Helper.ValidationHelper import ValidationHelper
+from Helper.MessageHelper import MessageHelper
+from Helper.DateHelper import *
+from Helper.DatabaseHelper import *
+from Class.Food import Food
+from Utils import Messages
+from datetime import datetime
 print("TEST STARTS\n")
 
-# user = {'id' : "Ub4f02f5551c8df3eda2a9d429f8e9d9d", 'name' : "Hank"}
-# msg = "/新增：醬味糙米餅～3/24@零食"
-# messageHelper = MessageHelper()
-# validationHelper = ValidationHelper(user['id'], msg, messageHelper)
-# command = validationHelper.Execute()
-# actionHelper = ActionHelper(command, messageHelper)
-# actionHelper.Execute()
+user = {'id' : "Ub4f02f5551c8df3eda2a9d429f8e9d9d", 'name' : "Hank"}
+msg = "/list"
+messageHelper = MessageHelper()
+validationHelper = ValidationHelper(user['id'], msg, messageHelper)
+command = validationHelper.Execute()
+actionHelper = ActionHelper(command, messageHelper)
+actionHelper.Execute()
 
-# print(messageHelper.GetMessage())
+print(messageHelper.GetMessage())
 
 # user_list = LoadUser()
 #         # For each user registered, will check their stored food and send them message if needed
@@ -59,15 +59,9 @@ print("TEST STARTS\n")
 #     if the_day_food_count > 0 or three_days_food_count > 0 or the_month_food_count > 0:
 #         print(messageHelper.GetMessage())
 
-from datetime import datetime,timezone,timedelta
+# count, list = GetTheDayFood(user["id"])
+# print(count)
 
-time_now = datetime.utcnow().replace(tzinfo=timezone.utc)
-time_in_taiwan = time_now.astimezone(timezone(timedelta(hours=8)))
-today = time_in_taiwan.strftime("%m/%d")
-year_now = int(time_in_taiwan.strftime("%Y"))
-
-print(year_now)
-print(today) 
-    
+# print(CheckYear("2/4"))
 
 print("\nTEST ENDS")
