@@ -2,7 +2,7 @@ import pymongo
 import calendar
 from Helper.DateHelper import *
 from Utils import DBSecret
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 client = pymongo.MongoClient(DBSecret.DB_CONN)
 
@@ -69,10 +69,9 @@ def GetTheMonthFood(id):
     today = datetime.today()
     today_object = datetime(today.year, today.month, today.day)
     last_day_date = calendar.monthrange(today.year, today.month)[1]
-    target_date = datetime.today() + timedelta(days=3)
-    target_date_object = datetime(target_date.year, target_date.month, last_day_date)
+    last_day_date_object = datetime(today.year, today.month, last_day_date)
     col = setFoodDB()
-    query = {"id": id, "date": {"$gte":today_object,"$lte":target_date_object}}
+    query = {"id": id, "date": {"$gte":today_object,"$lte":last_day_date_object}}
     return col.count_documents(query), col.find(query).sort("date", 1)
 
 def RemoveTheDayFood(id, food):

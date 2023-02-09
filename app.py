@@ -6,6 +6,7 @@ import os
 import threading
 from datetime import datetime
 import time
+import calendar
 from Utils import Actions, Messages, Secret, Checker
 from Helper.MessageHelper import MessageHelper
 from Helper.ValidationHelper import ValidationHelper
@@ -22,7 +23,7 @@ handler = WebhookHandler(Secret.CHANNEL_SECRET)
 def push_message():
     while 1 == 1:
         # Execute every day
-        time.sleep(86400)
+        time.sleep(180)
         # Load registered user
         user_list = LoadUser()
         # For each user registered, will check their stored food and send them message if needed
@@ -31,30 +32,38 @@ def push_message():
             # Retrieve foods that expire on that day
             the_day_food_count, the_day_food_list = GetTheDayFood(user['id'])
             if the_day_food_count > 0:
-                messageHelper.Add(Messages.ROBOT_HI + user['name'] + "，以下物品已於今日到期，請記得處理!")
+                messageHelper.Add(Messages.ROBOT_HI + user['name'] + "，\n以下物品已於今日到期，請記得處理!")
                 messageHelper.ConstructTheDayFood(user['id'], the_day_food_list)
                     
             # Retrieve foods that will expire in the following three days
             three_days_food_count, three_days_food_list = GetThreeDaysFood(user['id'])
             if three_days_food_count > 0:
                 if the_day_food_count > 0: messageHelper.Add("\n")
-                messageHelper.Add(Messages.ROBOT_HI + user['name'] + "，以下物品將於三天之內過期，請盡快食用!")
+                if the_day_food_count == 0 : messageHelper.Add(Messages.ROBOT_HI + user['name'] + "，\n")
+                messageHelper.Add("以下物品將於三天之內過期，請盡快食用!")
                 messageHelper.ConstructThreeDaysFood(three_days_food_list)
             
-            # If it is the first day of that month, generate a monthly report
             day_today = datetime.now().day
+            last_day_date = calendar.monthrange(today.year, today.month)[1]
+            # If it is the first day of that month, generate a monthly report
             the_month_food_count = 0
             if day_today == 1:
                 the_month_food_count, the_month_food_list = GetTheMonthFood(user['id'])
                 if the_month_food_count > 0:
                     if the_day_food_count > 0 or three_days_food_count > 0 : messageHelper.Add("\n")
-                    messageHelper.Add(Messages.ROBOT_HI + user['name'] + "，以下物品將於這個月過期，請多多注意嚕～")
+                    if the_day_food_count == 0 and three_days_food_count == 0 : messageHelper.Add(Messages.ROBOT_HI + user['name'] + "，\n")
+                    messageHelper.Add("以下物品將於這個月過期，請多多注意嚕～")
                     messageHelper.ConstructTheMonthFood(the_month_food_list)
+            
+            # If it is the last day of that month, generate a monthly review report
+            the_month_food_left_count = 0
+            if day_today == last_day_date:
+                print("YETTTT")
                     
             if the_day_food_count > 0 or three_days_food_count > 0 or the_month_food_count > 0:
                 line_bot_api.push_message(user['id'], TextSendMessage(text=messageHelper.GetMessage()))
 
-threading.Thread(target=push_message).start()
+# threading.Thread(target=push_message).start()
 
 # Listen all requests from /callback
 @app.route("/callback", methods=['POST'])
