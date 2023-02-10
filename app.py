@@ -45,7 +45,6 @@ def push_message():
                 messageHelper.ConstructThreeDaysFood(three_days_food_list)
             
             day_today = GetToday().day
-            last_day_date = calendar.monthrange(GetToday().year, GetToday().month)[1]
             # If it is the first day of that month, generate a monthly report
             the_month_food_count = 0
             if day_today == 1:
@@ -55,11 +54,6 @@ def push_message():
                     if the_day_food_count == 0 and three_days_food_count == 0 : messageHelper.Add(Messages.ROBOT_HI + user['name'] + "，\n")
                     messageHelper.Add("以下物品將於這個月過期，請多多注意嚕～")
                     messageHelper.ConstructTheMonthFood(the_month_food_list)
-            
-            # If it is the last day of that month, generate a monthly review report
-            the_month_food_left_count = 0
-            if day_today == last_day_date:
-                print("YETTTT")
             
             if the_day_food_count > 0 or three_days_food_count > 0 or the_month_food_count > 0:
                 line_bot_api.push_message(user['id'], TextSendMessage(text=messageHelper.GetMessage()))
